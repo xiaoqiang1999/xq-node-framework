@@ -1,0 +1,49 @@
+{
+	"plugins": [
+		[
+			"@babel/plugin-transform-runtime",
+			// babel 在转译的过程中，对语法的处理可能会使用到 helper 函数，对 api 的处理会引入 polyfill
+			// 默认情况下，babel 在每个需要使用 helper 函数的地方都会定义一个 helper，导致最终的代码里有大量重复的 helper；引入 polyfill 时会直接修改全局变量及其原型，造成原型污染
+			// @babel/plugin-transform-runtime 的作用是将 helper 和 polyfill 都改为从一个统一的地方引入，并且引入的对象和全局变量是完全隔离的，这样解决了上面的两个问题
+			{
+				"helpers": true /* default: true 是否替换helpers */,
+				"regenerator": true /* default: true generator是否被转译成用regenerator runtime包装不污染全局作用域的代码。 */,
+				"useESModules": false /* default: false 是否对文件使用 ES 的模块语法 */,
+				"corejs": false /* default: false 值可以是数字：{ corejs: 2 }，代表需要使用corejs的版本 */
+			}
+		],
+		[
+			"module-resolver",
+			{
+				"root": ["./build"],
+				"alias": {
+					"@": "./build"
+					// "underscore": "lodash"
+				}
+			}
+		]
+	],
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"targets": { "node": "current" /* 针对当前node版本进行编译 */ },
+				"useBuiltIns": "usage" /* default: false 是否使用内置的 polyfills  */,
+				/* 默认只对语法进行转换，不对新 API 进行处理；当设置为其它值时，需要安装core-js */
+				"corejs": {
+					/* 配合上面的 useBuiltIns 选项 使用内置 polyfills 时, 配置此选项 */
+					"version": 3 /* 要使用的 corejs 的版本 */
+					// "proposals": true /* 使用尚在“提议”阶段特性的 polyfill */
+				},
+				"modules": "auto" /* default: auto 启用将ES6模块语法转换为其他模块类型的功能 "amd" | "umd" | "systemjs" | "commonjs" | "cjs" | "auto" | false */,
+				"debug": false /* default: false 是否用console输出启用的plugins列表 */,
+				"spec": false /* default: false 为此预设中支持它的任何plugin启用更符合规范的转译 但可能转译的速度更慢 */,
+				"loose": false /* default: false */,
+				"include": [] /* 总是启用的 plugins */,
+				"exclude": [] /* 强制不启用的 plugins */,
+				"forceAllTransforms": false /* default: false 强制使用所有的plugins，用于只能支持ES5的uglify可以正确压缩代码 */
+			}
+		]
+		// "@babel/preset-typescript"
+	]
+}

@@ -1,0 +1,8 @@
+/* dev环境的 tsconfig */
+{
+	"extends": "./tsconfig.prod.json",
+	"compilerOptions": {
+		"target": "ES2020",
+		"removeComments": false // 不删除注释 提高编译速度
+	}
+}

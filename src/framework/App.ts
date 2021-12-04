@@ -7,7 +7,7 @@ import {
 	HTTP_FUNC_CONF,
 	HTTP_FUNC_PARAM_LIST,
 } from './decorator/constants';
-import { recursiveReaddir } from '@/utils';
+import { recursiveReaddir } from './utils';
 
 export default class App {
 	private koaApp: Koa;
@@ -23,32 +23,32 @@ export default class App {
 	}
 
 	public binding() {
-		let controllerList = Reflect.getMetadata(CONTROLLER_CLASS_LIST, Reflect);
+		const controllerList = Reflect.getMetadata(CONTROLLER_CLASS_LIST, Reflect);
 
-		for (let Controller of controllerList) {
+		for (const Controller of controllerList) {
 			// console.log(Object.getOwnPropertyNames(Controller.prototype));
 			// Object.getOwnPropertyNames(Controller.prototype).forEach(funcName => {
 			// 	console.log(Controller.prototype[funcName]);
 			// });
 
-			let basePath = Reflect.getMetadata(
+			const basePath = Reflect.getMetadata(
 				CONTROLLER_CLASS_PATH,
 				Controller
-			) as String;
+			) as string;
 			// let instance = new Controller();
 			// let proto = Object.getPrototypeOf(instance);
-			let proto = Controller.prototype;
+			const proto = Controller.prototype;
 
 			Object.getOwnPropertyNames(proto)
 				.filter(i => i !== 'constructor' && typeof proto[i] === 'function')
 				.map((funcName: string) => proto[funcName])
 				.forEach(func => {
-					let { path, method } = Reflect.getMetadata(
+					const { path, method } = Reflect.getMetadata(
 						HTTP_FUNC_CONF,
 						func
 					) as HttpFuncConf;
 
-					let paramList = Reflect.getMetadata(
+					const paramList = Reflect.getMetadata(
 						HTTP_FUNC_PARAM_LIST,
 						func
 					) as HttpFuncParam[];
@@ -74,10 +74,10 @@ export default class App {
 }
 
 function getArgsByParam(paramList: HttpFuncParam[], ctx: RouterContext) {
-	let args: any[] = [];
+	const args: any[] = [];
 
-	for (let param of paramList) {
-		let { paramType, propKey, paramIndex } = param;
+	for (const param of paramList) {
+		const { paramType, propKey, paramIndex } = param;
 		switch (paramType) {
 			case 'params':
 				args[paramIndex] = ctx.params[propKey];

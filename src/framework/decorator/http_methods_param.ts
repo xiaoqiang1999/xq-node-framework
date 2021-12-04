@@ -17,13 +17,13 @@ const createParamDecorator = (paramType: Param) => {
 			funcName: string,
 			paramIndex: number
 		) => {
-			let func = targetProto[funcName];
+			const func = targetProto[funcName];
 			// 在函数上定义 参数的信息
 			// 获取参数list
-			let paramList: HttpFuncParam[] =
+			const paramList: HttpFuncParam[] =
 				Reflect.getMetadata(HTTP_FUNC_PARAM_LIST, func) || [];
 			// 添加新的参数
-			let newParamList = (
+			const newParamList = (
 				[{ paramType, propKey, paramIndex }] as HttpFuncParam[]
 			).concat(paramList);
 			// 重新赋值

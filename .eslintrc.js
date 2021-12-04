@@ -19,7 +19,7 @@ module.exports = {
 		'arrow-body-style': 'off',
 		'prefer-arrow-callback': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off', // 开启时: 必须显式声明 函数的返回类型、参数类型
-		'@typescript-eslint/no-var-requires': 'off', // 开启时: 不允许使用var = require()形式的导入
+		// '@typescript-eslint/no-var-requires': 'off', // 开启时: 不允许使用var = require()形式的导入
 	},
 	env: {
 		//指定代码的运行环境

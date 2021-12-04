@@ -10,7 +10,6 @@
 */
 import { App } from '@/framework';
 import path from 'path';
-// import { Container, inject, injectable } from 'inversify';
 
 const app = new App();
 
@@ -20,28 +19,3 @@ app.loadFile(path.resolve(__dirname, './controllers'));
 app.binding();
 
 app.listen(8080);
-
-////////////////////////////////////////////
-// const container = new Container();
-// @injectable()
-// class Test {
-// 	say() {
-// 		console.log('hello');
-// 	}
-// }
-// container.bind('test').to(Test);
-
-// @injectable()
-// class Main {
-// 	// public test: Test;
-// 	constructor(@inject('test') public test: Test) {
-// 		this.init();
-// 	}
-// 	init() {
-// 		this.test.say();
-// 	}
-// }
-// container.bind<Main>('main').to(Main);
-
-// let main = container.get<Main>('main');
-// console.log(main);

@@ -8,12 +8,40 @@
 		3. 静态资源使用shell命令复制指定文件夹
 
 */
+import { App } from '@/framework';
+import path from 'path';
+// import { Container, inject, injectable } from 'inversify';
 
-import http from 'http';
-import { add } from '@/utils';
+const app = new App();
 
-http
-	.createServer((req, res) => {
-		res.end('hello world\n1 + 2 = ' + add(1, 2));
-	})
-	.listen(8080);
+// let res = app.loadFile('./controllers');
+app.loadFile(path.resolve(__dirname, './controllers'));
+
+app.binding();
+
+app.listen(8080);
+
+////////////////////////////////////////////
+// const container = new Container();
+// @injectable()
+// class Test {
+// 	say() {
+// 		console.log('hello');
+// 	}
+// }
+// container.bind('test').to(Test);
+
+// @injectable()
+// class Main {
+// 	// public test: Test;
+// 	constructor(@inject('test') public test: Test) {
+// 		this.init();
+// 	}
+// 	init() {
+// 		this.test.say();
+// 	}
+// }
+// container.bind<Main>('main').to(Main);
+
+// let main = container.get<Main>('main');
+// console.log(main);

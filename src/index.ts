@@ -1,5 +1,6 @@
 /*
 
+	* npm install 时 执行npm的生命周期 script："prepare" 来初始化 git hooks
 	* dev: ts-node + tsconfig-paths(解决ts不转译alias的问题)
 	* build：
 		1. 使用 tsc 转译代码为 ESNEXT
@@ -13,6 +14,6 @@ import { add } from '@/utils';
 
 http
 	.createServer((req, res) => {
-		res.end('hello world\n1 + 2 = ' + add(1, 2));.;fasdfds;defult
+		res.end('hello world\n1 + 2 = ' + add(1, 2));
 	})
-	\\\\\][[lpknjkbhdfcx]].listen(8080);fdatc;
+	.listen(8080);

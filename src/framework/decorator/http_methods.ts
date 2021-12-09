@@ -6,16 +6,29 @@ import { HTTP_FUNC_CONF } from './constants';
 
 /**
  * 创建 method装饰器
- * @param httpMethod字符串
- * @returns method装饰器
+ * @param httpMethod
+ * @returns Function
  */
 const createMethodDecorator = (method: HttpMethods) => {
+	/**
+	 * method装饰器
+	 * @param path 路由路径
+	 * @returns MethodDecorator
+	 */
 	return (path: string) => {
 		return (
 			targetProto: object,
 			funcName: string,
 			descriptor: TypedPropertyDescriptor<(...args: any[]) => any>
 		) => {
+			let ControllerClass = targetProto.constructor;
+			// console.log(funcName);
+			let funcList = Reflect.getMetadata(HTTP_FUNC_CONF, ControllerClass) || [];
+
+			funcList.push({ funcName, path, method });
+			Reflect.defineMetadata(HTTP_FUNC_CONF, funcList, ControllerClass);
+
+			/**
 			Reflect.defineMetadata(
 				HTTP_FUNC_CONF,
 				{
@@ -25,6 +38,7 @@ const createMethodDecorator = (method: HttpMethods) => {
 				descriptor.value!
 			);
 			// return descriptor;
+			 */
 		};
 	};
 };

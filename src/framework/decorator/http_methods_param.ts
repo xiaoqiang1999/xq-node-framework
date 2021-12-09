@@ -8,26 +8,30 @@ import { HTTP_FUNC_PARAM_LIST } from './constants';
 /**
  * 创建参数装饰器
  * @param paramType 参数在context中的类型 即参数在context中的key值
- * @returns
+ * @returns Function
  */
 const createParamDecorator = (paramType: Param) => {
+	/**
+	 * http函数的参数装饰器
+	 * @param propKey 要获取的值的key
+	 * @returns ParameterDecorator
+	 */
 	return (propKey: string) => {
-		return (
-			targetProto: { [key: string]: any },
-			funcName: string,
-			paramIndex: number
-		) => {
-			const func = targetProto[funcName];
-			// 在函数上定义 参数的信息
+		return (targetProto: object, funcName: string, paramIndex: number) => {
+			const TargetClass = targetProto.constructor;
+			// 在类上定义 函数的参数信息
 			// 获取参数list
 			const paramList: HttpFuncParam[] =
-				Reflect.getMetadata(HTTP_FUNC_PARAM_LIST, func) || [];
+				Reflect.getMetadata(HTTP_FUNC_PARAM_LIST, TargetClass, funcName) || [];
 			// 添加新的参数
-			const newParamList = (
-				[{ paramType, propKey, paramIndex }] as HttpFuncParam[]
-			).concat(paramList);
+			paramList.unshift({ paramType, propKey, paramIndex });
 			// 重新赋值
-			Reflect.defineMetadata(HTTP_FUNC_PARAM_LIST, newParamList, func);
+			Reflect.defineMetadata(
+				HTTP_FUNC_PARAM_LIST,
+				paramList,
+				TargetClass,
+				funcName
+			);
 		};
 	};
 };

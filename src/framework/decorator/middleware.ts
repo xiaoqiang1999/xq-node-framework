@@ -1,4 +1,4 @@
-import { Constructor, MiddlewareClass } from '../interface';
+import { Constructor } from '../interface';
 import {
 	CONTROLLER_MIDDLEWARE_LIST,
 	HTTP_FUNC_MIDDLEWARE_LIST,

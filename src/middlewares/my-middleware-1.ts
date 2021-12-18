@@ -1,11 +1,11 @@
-import { App, AppContext, Next } from '@/framework';
-import { defineMiddleware } from '@/framework/decorator/defineMiddleware';
+import { Cream, CreamContext, Next, defineMiddleware } from '@/framework';
 import { MiddlewareClass } from '@/framework/interface';
 
 @defineMiddleware('my-middleware-1')
 class Temp implements MiddlewareClass {
-	public initMiddleware = (app: App) => {
-		return (ctx: AppContext, next: Next) => {
+	public initMiddleware = (creamApp: Cream) => {
+		return (ctx: CreamContext, next: Next) => {
+			console.log('my-middleware-1');
 			ctx.body = 'my-middleware-1';
 			return next();
 		};

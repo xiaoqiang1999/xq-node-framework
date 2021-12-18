@@ -1,30 +1,54 @@
-import { controller, get, params, RouterContext, Next } from '@/framework';
+import {
+	controller,
+	get,
+	params,
+	CreamContext,
+	Next,
+	body,
+	post,
+	cookies,
+	headers,
+	Cream,
+} from '@/framework';
+import { middleware } from '@/framework/decorator/middleware';
+import { IndexService } from '@/services';
+import { inject } from 'inversify';
 
 @controller('/detail')
+@middleware('my-middleware-1')
 export default class Detail {
-	private name = 'controller-details';
+	@inject('IndexService') index!: IndexService;
+	@inject('creamApp') creamApp!: Cream;
 
 	@get('')
-	get(ctx: RouterContext, next: Next) {
+	@middleware('my-middleware-2')
+	get(ctx: CreamContext, next: Next) {
 		ctx.body = 'detail';
-		console.log(this.name);
-		this.name = '123';
-		console.log(this.name);
+		console.log('detail');
+		this.index.show();
 		return next();
 	}
 
 	@get('/:id')
+	@post('/:id')
+	@middleware('my-middleware-3')
 	getDetail(
 		@params('id') id: string,
-		@params('name') name: string,
-		ctx: RouterContext,
+		@body('name') body_name: string,
+		@cookies('name') cookie_name: string,
+		@headers('name') header_name: string,
+		ctx: CreamContext,
 		next: Next
 	) {
-		ctx.body = `detail from ${id}`;
+		const outStr = `
+			detail from ${id}
+			body_name: ${body_name}
+			cookie_name: ${cookie_name}
+			header_name: ${header_name}
+		`;
+		ctx.body = outStr;
+		this.creamApp.perttyLog(outStr);
+		this.index.show();
 		return next();
-	}
-
-	hehe() {
-		console.log('pei');
 	}
 }

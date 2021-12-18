@@ -1,3 +1,3 @@
 import { Container } from 'inversify';
 
-export const appContainer = new Container();
+export const creamContainer = new Container();

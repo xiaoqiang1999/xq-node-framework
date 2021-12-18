@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { appContainer } from '../container';
+import { creamContainer } from '../container';
 import { TYPES } from '../core/types';
 import { Constructor } from '../interface';
 import { CONTROLLER_CLASS_LIST, CONTROLLER_CLASS_PATH } from './constants';
@@ -9,16 +9,19 @@ import { CONTROLLER_CLASS_LIST, CONTROLLER_CLASS_PATH } from './constants';
  * @param path controller的基础路由路径
  * @returns ClassDecorator
  */
-export const controller = (path: string) => {
+export const controller = (path?: string) => {
 	return (TargetClass: Constructor<any>) => {
 		injectable()(TargetClass);
-		appContainer
+		creamContainer
 			.bind(TYPES.CONTROLLER)
 			.to(TargetClass)
 			.whenTargetNamed(TargetClass.name);
 
-		// 给类添加 path
-		Reflect.defineMetadata(CONTROLLER_CLASS_PATH, path, TargetClass);
+		if (path) {
+			// 给类添加 path
+			Reflect.defineMetadata(CONTROLLER_CLASS_PATH, path, TargetClass);
+		}
+
 		// 从 Reflect对象上取下 类list
 		const controllerList =
 			Reflect.getMetadata(CONTROLLER_CLASS_LIST, Reflect) || [];

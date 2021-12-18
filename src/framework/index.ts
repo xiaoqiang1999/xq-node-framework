@@ -1,9 +1,10 @@
 import 'reflect-metadata';
 
-import App from './core/App';
-export { App };
+import Cream from './core/Cream';
+export { Cream };
 
 export * from './decorator';
 
-export { Next, Context as AppContext } from 'koa';
+export { Next } from 'koa';
+export { CreamContext } from './interface';
 export { RouterContext } from '@koa/router';

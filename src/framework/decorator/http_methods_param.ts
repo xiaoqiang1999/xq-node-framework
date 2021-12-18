@@ -40,3 +40,5 @@ const createParamDecorator = (paramType: Param) => {
 export const params = createParamDecorator('params');
 export const query = createParamDecorator('query');
 export const body = createParamDecorator('body');
+export const headers = createParamDecorator('headers');
+export const cookies = createParamDecorator('cookies');

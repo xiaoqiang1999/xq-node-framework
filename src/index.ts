@@ -8,21 +8,24 @@
 		3. 静态资源使用shell命令复制指定文件夹
 
 */
-import { App } from '@/framework';
+import { Cream } from '@/framework';
 import { Container, inject, injectable } from 'inversify';
-import path from 'path';
+import log4js from './log4js';
 
-const app = new App({ middlewareOrder: ['static-server'] });
+const app = new Cream({ middlewareOrder: ['static-server'], log4js });
 
 (async () => {
 	// let res = app.loadFile('./controllers');
-	await app.loadFile(path.resolve(__dirname, './controllers'));
-	await app.loadFile(path.resolve(__dirname, './middlewares'));
+	await app.loadFile('./controllers');
+	await app.loadFile('./middlewares');
+	await app.loadFile('./services');
 
 	app.binding();
 
 	app.listen(8080);
 })();
+
+// console.log(require.main);
 
 // const container = new Container();
 // @injectable()

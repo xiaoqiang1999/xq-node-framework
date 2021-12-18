@@ -2,8 +2,7 @@
 import send, { SendOptions } from 'koa-send';
 import path from 'path';
 
-import { defineMiddleware } from '@/framework/decorator/defineMiddleware';
-import { App, AppContext, Next } from '@/framework';
+import { Cream, CreamContext, Next, defineMiddleware } from '@/framework';
 import { MiddlewareClass } from '@/framework/interface';
 
 const options: SendOptions = {
@@ -39,11 +38,12 @@ const options: SendOptions = {
 
 @defineMiddleware('static-server')
 class StaticServer implements MiddlewareClass {
-	public initMiddleware(app: App) {
+	public initMiddleware(creamApp: Cream) {
 		return this.middleware;
 	}
 
-	public async middleware(ctx: AppContext, next: Next) {
+	public async middleware(ctx: CreamContext, next: Next) {
+		console.log('static-server');
 		/**
 		 * 如果访问的路径以 /public/ 开头 或是 /public
 		 * 才执行此函数 提供静态文件服务

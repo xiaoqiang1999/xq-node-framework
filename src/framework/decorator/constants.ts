@@ -5,3 +5,5 @@ export const HTTP_FUNC_PARAM_LIST = 'xq:controller/method/param';
 
 export const CONTROLLER_MIDDLEWARE_LIST = 'xq:controller-class/middlewares';
 export const HTTP_FUNC_MIDDLEWARE_LIST = 'xq:middleware';
+
+export const SERVICE_CLASS_LIST = 'xq:service-class';

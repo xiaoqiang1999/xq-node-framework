@@ -1,39 +1,41 @@
-import { Middleware } from 'koa';
-import { App, RouterContext } from '..';
-import { appContainer } from '../container';
+import { Cream } from '..';
+import { creamContainer } from '../container';
 import { TYPES } from '../core/types';
 import { plugin } from '../decorator/plugin';
 import { MiddlewareClass, PluginClass } from '../interface';
 
 @plugin()
 class GlobalMiddleware implements PluginClass {
-	async initPlugin(app: App) {
+	public static readonly internalMiddlewares = [
+		'cream-logger',
+		'cream-onerror',
+		'cream-body',
+		'cream-request-container',
+	];
+
+	async initPlugin(creamApp: Cream) {
 		// 监听routerUseBefore事件，在use router之前use中间件
-		app.on('routerUseBefore', () => {
-			if (!app.options.middlewareOrder) {
-				return;
+		creamApp.on('routerUseBefore', () => {
+			let middlewareOrder;
+
+			if (Array.isArray(creamApp.options.middlewareOrder)) {
+				middlewareOrder = GlobalMiddleware.internalMiddlewares.concat(
+					creamApp.options.middlewareOrder
+				);
+			} else {
+				middlewareOrder = GlobalMiddleware.internalMiddlewares;
 			}
 
-			for (let middlewareName of app.options.middlewareOrder) {
-				let middleware = appContainer.getNamed<MiddlewareClass>(
+			for (let middlewareName of middlewareOrder) {
+				let middleware = creamContainer.getNamed<MiddlewareClass>(
 					TYPES.MIDDLEWARE,
 					middlewareName
 				);
-				let middlewareFun = middleware.initMiddleware(app);
+				let middlewareFun = middleware.initMiddleware(creamApp);
 				if (middlewareFun) {
-					app.koaApp.use(middlewareFun);
+					creamApp.koaApp.use(middlewareFun);
 				}
 			}
-
-			// const middlewareList = Reflect.getMetadata(MIDDLEWARE_LIST, Reflect);
-			// 按顺序 use 全局中间件
-			// if (app.options.middlewareOrder) {
-			// 	getMiddlewareToUse(
-			// 		middlewareList,
-			// 		app.options.middlewareOrder,
-			// 		app
-			// 	).forEach(item => app.koaApp.use(item));
-			// }
 		});
 	}
 }

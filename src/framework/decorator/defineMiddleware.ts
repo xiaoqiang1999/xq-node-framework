@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { appContainer } from '../container';
+import { creamContainer } from '../container';
 import { TYPES } from '../core/types';
 import { Constructor, MiddlewareClass } from '../interface';
 
@@ -11,7 +11,7 @@ import { Constructor, MiddlewareClass } from '../interface';
 export const defineMiddleware = (middlewareName: string) => {
 	return (TargetClass: Constructor<MiddlewareClass>) => {
 		injectable()(TargetClass);
-		appContainer
+		creamContainer
 			.bind(TYPES.MIDDLEWARE)
 			.to(TargetClass)
 			.whenTargetNamed(middlewareName);

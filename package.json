@@ -1,10 +1,16 @@
 {
-	"name": "cream-framework",
-	"version": "0.0.1",
+	"name": "cream.js",
+	"version": "0.0.4",
 	"description": "",
-	"main": "src/index.js",
+	"main": "build/index.js",
+	"files": [
+		"build",
+		"types",
+		"package.json"
+	],
 	"scripts": {
 		"prepare": "npx simple-git-hooks",
+		"prepublish": "npm run build",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon --exec ts-node --require tsconfig-paths/register ./example/test/index.ts",
 		"build": "node build.js",

@@ -29,5 +29,6 @@ export const controller = (path?: string) => {
 		// 将当前类添加到类 list
 		const new_controllerList = [TargetClass].concat(controllerList);
 		Reflect.defineMetadata(CONTROLLER_CLASS_LIST, new_controllerList, Reflect);
+		return TargetClass;
 	};
 };

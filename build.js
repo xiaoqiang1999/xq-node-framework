@@ -12,7 +12,7 @@ shell.exec('tsc --project ./tsconfig.prod.json');
 // 使用babel 转译alias 可配置babel编译到目标环境版本、以及要使用的polyfill
 shell.exec('babel ./build --out-dir ./build');
 // 复制 public目录
-shell.cp('-r', './src/static', './build/');
+// shell.cp('-r', './src/static', './build/');
 
 console.log('build Success');
 

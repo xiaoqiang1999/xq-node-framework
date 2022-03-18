@@ -13,7 +13,8 @@
 		"prepublish": "npm run build",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon --exec ts-node --require tsconfig-paths/register ./example/test/index.ts",
-		"build": "node build.js"
+		"build": "node build.js",
+		"publish": "npm publish --registry http://registry.npmjs.org"
 	},
 	"author": "xiaoqiang1999",
 	"license": "ISC",

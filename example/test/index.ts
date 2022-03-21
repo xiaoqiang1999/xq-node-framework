@@ -9,9 +9,7 @@
 
 */
 import { Cream } from '~/src';
-import { Container, inject, injectable } from 'inversify';
 import log4js from './log4js';
-// import log4js from './log4js';
 
 // const app = new Cream({ middlewareOrder: ['static-server'], log4js });
 const app = new Cream({ middlewareOrder: ['static-server'] });
@@ -26,32 +24,3 @@ const app = new Cream({ middlewareOrder: ['static-server'] });
 
 	app.listen(8080);
 })();
-
-// console.log(require.main);
-
-// const container = new Container();
-// @injectable()
-// class Knife {
-// 	hit() {
-// 		console.log('给你一刀');
-// 	}
-// }
-// container.bind<Knife>('Knife').to(Knife);
-
-// @injectable()
-// class Person {
-// 	@inject('Knife') public knife?: Knife;
-
-// 	hit() {
-// 		this.knife?.hit();
-// 	}
-// }
-// container.bind<Person>('Person').to(Person);
-
-// let person = container.get<Person>('Person');
-// person.hit();
-// console.log(person === container.get<Person>('Person'));
-
-// const subContainer = new Container();
-// subContainer.parent = container;
-// subContainer.get<Knife>('Knife').hit();

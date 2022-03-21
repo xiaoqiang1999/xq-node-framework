@@ -10,6 +10,7 @@
 */
 import { Cream } from '~/src';
 import { Container, inject, injectable } from 'inversify';
+import log4js from './log4js';
 // import log4js from './log4js';
 
 // const app = new Cream({ middlewareOrder: ['static-server'], log4js });
@@ -17,9 +18,9 @@ const app = new Cream({ middlewareOrder: ['static-server'] });
 
 (async () => {
 	// let res = app.loadFile('./controllers');
+	await app.loadFile('./services');
 	await app.loadFile('./controllers');
 	await app.loadFile('./middlewares');
-	await app.loadFile('./services');
 
 	app.binding();
 

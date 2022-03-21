@@ -8,5 +8,6 @@ export class IndexService {
 	show() {
 		console.log('IndexService');
 		console.log(this.ctx.request.url);
+		return 'Run: Index Service';
 	}
 }

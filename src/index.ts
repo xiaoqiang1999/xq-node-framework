@@ -1,7 +1,7 @@
 import 'reflect-metadata';
+export { inject, injectable } from 'inversify';
 
-import Cream from './core/Cream';
-export { Cream };
+export { default as Cream } from './core/Cream';
 
 export * from './decorator';
 

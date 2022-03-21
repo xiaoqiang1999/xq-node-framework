@@ -32,7 +32,6 @@ export interface CreamOptions {
 	routerOptions?: RouterOptions;
 	onerrorOptions?: { [key: string]: any };
 	bodyOptions?: IKoaBodyOptions;
-	log4js?: Log4js;
 }
 
 export interface MiddlewareClass {

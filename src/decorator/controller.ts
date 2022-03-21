@@ -5,7 +5,7 @@ import { Constructor } from '../interface';
 import { CONTROLLER_CLASS_LIST, CONTROLLER_CLASS_PATH } from './constants';
 
 /**
- * 注册 controller 的装饰器
+ * 定义 controller 的装饰器
  * @param path controller的基础路由路径
  * @returns ClassDecorator
  */
@@ -17,6 +17,8 @@ export const controller = (path?: string) => {
 			.bind(TYPES.CONTROLLER)
 			.to(TargetClass)
 			.whenTargetNamed(TargetClass.name);
+
+		// creamContainer.bind('constant-controller').toConstantValue(TargetClass);
 
 		if (path) {
 			// 给类添加 path

@@ -1,7 +1,7 @@
 import assert from 'assert';
+import { Container } from 'inversify';
 import is from 'is_js';
 import { Cream, CreamContext, RouterContext } from '..';
-import { creamContainer } from '../container';
 import { TYPES } from '../core/types';
 import {
 	CONTROLLER_CLASS_LIST,
@@ -26,38 +26,41 @@ import {
 class Router implements PluginClass {
 	async initPlugin(creamApp: Cream) {
 		// 监听init事件 在app init时绑定路由
-		creamApp.on('init', () => {
+		creamApp.on('init', (creamContainer: Container) => {
 			// 触发routerUseBefore事件 在use router之前use中间件
 			creamApp.emit('routerUseBefore');
 			// 绑定路由
-			this.bindRouter(creamApp);
+			this.bindRouter(creamApp, creamContainer);
 		});
 	}
 
-	private bindRouter(creamApp: Cream) {
+	private bindRouter(creamApp: Cream, creamContainer: Container) {
 		// @ts-ignore
 		const controllers: Constructor<any>[] | undefined = Reflect.getMetadata(
 			CONTROLLER_CLASS_LIST,
 			Reflect
 		);
 
+		// let arr = creamContainer.getAll('constant-controller');
+		// console.log(arr);
+
 		if (!controllers) return;
 
 		// @ts-ignore
-		const services: Constructor<any>[] | undefined = Reflect.getMetadata(
-			SERVICE_CLASS_LIST,
-			Reflect
-		);
+		// const services: Constructor<any>[] | undefined = Reflect.getMetadata(
+		// 	SERVICE_CLASS_LIST,
+		// 	Reflect
+		// );
 		// temp
-		services?.forEach(Service => {
-			creamContainer.bind(Service.name).to(Service);
-		});
+		// services?.forEach(Service => {
+		// 	creamContainer.bind(Service.name).to(Service);
+		// });
 
 		for (const Controller of controllers) {
 			const basePath: string =
 				Reflect.getMetadata(CONTROLLER_CLASS_PATH, Controller) || '';
 
-			// 获取定义在 controllerClass 上的 httpMethods描述
+			// 获取定义在 controllerClass 上的 httpMethods元数据
 			const funcList: HttpFuncConf[] | undefined = Reflect.getMetadata(
 				HTTP_FUNC_CONF,
 				Controller
@@ -70,7 +73,14 @@ class Router implements PluginClass {
 
 				creamApp.perttyLog(`[init] [router] ${method} - ${routePath}`);
 
-				useMiddleware(Controller, funcName, routePath, method, creamApp);
+				useMiddleware(
+					Controller,
+					funcName,
+					routePath,
+					method,
+					creamApp,
+					creamContainer
+				);
 
 				const paramsDescriptionList: HttpFuncParam[] = Reflect.getMetadata(
 					HTTP_FUNC_PARAM_LIST,
@@ -148,6 +158,7 @@ function getArgsByParamsDescription(
  * @param path 请求路径
  * @param method 请求Method
  * @param app App实例
+ * @param creamContainer app容器
  * @returns void
  */
 function useMiddleware(
@@ -156,7 +167,8 @@ function useMiddleware(
 	funcName: string,
 	path: string,
 	method: HttpMethods,
-	creamApp: Cream
+	creamApp: Cream,
+	creamContainer: Container
 ) {
 	let result: string[];
 

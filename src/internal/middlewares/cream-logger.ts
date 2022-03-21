@@ -3,6 +3,7 @@ import { MiddlewareClass } from '../../interface';
 import { defineMiddleware, Cream } from '../..';
 // import log4js, { Log4js } from 'log4js';
 import chalk from 'chalk';
+import { debugLog } from '@/utils';
 
 const chalkGreen = chalk.green;
 const chalkBlue = chalk.blue;
@@ -37,7 +38,6 @@ const title_time_cout = chalkGreen('time_cost:');
 @defineMiddleware('cream-logger')
 class CreamLogger implements MiddlewareClass {
 	public initMiddleware(creamApp: Cream) {
-		const accessLog = creamApp.log4js.getLogger('access');
 		return async (ctx: Context, next: Next) => {
 			const reqTime = Date.now();
 			await next();
@@ -48,7 +48,7 @@ class CreamLogger implements MiddlewareClass {
 				ctx.status,
 				Date.now() - reqTime
 			);
-			accessLog.info(info);
+			creamApp.perttyLog(info);
 		};
 	}
 

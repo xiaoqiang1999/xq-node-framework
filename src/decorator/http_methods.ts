@@ -1,7 +1,7 @@
 /**
  * http method 请求装饰器 @get('xx/xxx') @post()
  */
-import { HttpMethods } from '../interface';
+import { HttpFuncConf, HttpMethods } from '../interface';
 import { HTTP_FUNC_CONF } from './constants';
 
 /**
@@ -24,7 +24,7 @@ const createMethodDecorator = (method: HttpMethods) => {
 		) => {
 			const ControllerClass = targetProto.constructor;
 			// console.log(funcName);
-			const funcList =
+			const funcList: HttpFuncConf[] =
 				Reflect.getMetadata(HTTP_FUNC_CONF, ControllerClass) || [];
 
 			funcList.push({ funcName, path, method });

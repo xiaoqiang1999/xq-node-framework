@@ -23,7 +23,7 @@ log4js.configure({
 		},
 		cream: {
 			appenders: ['cream'],
-			level: 'debug',
+			level: 'info',
 		},
 	},
 });

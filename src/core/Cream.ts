@@ -1,14 +1,13 @@
 import { CreamOptions, LogLevel, PluginClass } from '../interface';
 import Koa from 'koa';
 import Router from '@koa/router';
-import { recursiveReaddir } from '../utils';
+import { debugLog, recursiveReaddir } from '../utils';
 import { creamContainer } from '../container';
 import { TYPES } from './types';
 import { join } from 'path';
 import EventEmitter from 'events';
 import { Server } from 'http';
 import { ListenOptions } from 'net';
-import log4js, { Log4js } from 'log4js';
 import defaultOptions from './defaultOptions';
 import objectAssignDeep from 'object-assign-deep';
 
@@ -17,21 +16,16 @@ export default class Cream extends EventEmitter {
 	public router: Router;
 	// @ts-ignore
 	public options: CreamOptions = {};
-	public log4js: Log4js;
+	public httpServer!: Server;
+	// public creamContainer: Container = creamContainer;
 
 	public constructor(options: CreamOptions = {}) {
 		super();
-		this.koaApp = new Koa();
-		this.router = new Router();
-
-		if (options.log4js) {
-			this.log4js = options.log4js;
-			delete options.log4js;
-		} else {
-			this.log4js = log4js.configure(defaultOptions.log4jsConfigure);
-		}
 
 		objectAssignDeep(this.options, defaultOptions, options);
+
+		this.koaApp = new Koa();
+		this.router = new Router(defaultOptions.routerOptions);
 
 		this.koaApp.on('error', (err: Error) => {
 			this.perttyLog(`[Koa Error] ${err.stack || err.message}`, 'error');
@@ -54,13 +48,12 @@ export default class Cream extends EventEmitter {
 			await item.initPlugin(this);
 		}
 
-		// 触发init事件 进行路由绑定
-		this.emit('init');
+		this.emit('init', creamContainer); // 触发init事件 进行路由绑定
 	}
 
 	public perttyLog(msg: string, level: LogLevel = 'info') {
-		// debugLog(`[${new Date().toLocaleString()}] ${msg}`, level);
-		this.log4js.getLogger('cream')[level](msg);
+		debugLog(`[${new Date().toLocaleString()}] ${msg}`, level);
+		// this.log4js.getLogger('cream')[level](msg);
 	}
 
 	listen(
@@ -92,7 +85,9 @@ export default class Cream extends EventEmitter {
 	// @ts-ignore
 	listen(handle: any, listeningListener?: () => void): Server;
 	// @ts-ignore
-	public listen(...args: any[]) {
-		return this.koaApp.listen(...args);
+	public listen(...args: any[]): Server {
+		this.httpServer = this.koaApp.listen(...args);
+		this.emit('serverReady', this.httpServer);
+		return this.httpServer;
 	}
 }

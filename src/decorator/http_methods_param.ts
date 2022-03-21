@@ -23,8 +23,10 @@ const createParamDecorator = (paramType: Param) => {
 			funcName: string,
 			paramIndex: number
 		) => {
+			console.log(paramType, propKey);
+
 			const TargetClass = targetProto.constructor;
-			// 在类上定义 函数的参数信息
+			// 在controller类上定义 函数的参数信息
 			// 获取参数list
 			const paramList: HttpFuncParam[] =
 				Reflect.getMetadata(HTTP_FUNC_PARAM_LIST, TargetClass, funcName) || [];
@@ -37,6 +39,7 @@ const createParamDecorator = (paramType: Param) => {
 				TargetClass,
 				funcName
 			);
+			console.log(paramList);
 		};
 	};
 };

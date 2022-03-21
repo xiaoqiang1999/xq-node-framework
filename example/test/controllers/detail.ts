@@ -10,9 +10,9 @@ import {
 	headers,
 	Cream,
 	middleware,
+	inject,
 } from '~/src';
 import { IndexService } from '../services';
-import { inject } from 'inversify';
 
 @controller('/detail')
 @middleware('my-middleware-1')

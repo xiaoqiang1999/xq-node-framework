@@ -9,7 +9,7 @@ import { Constructor, PluginClass } from '../interface';
  */
 export const plugin = () => {
 	return (TargetClass: Constructor<PluginClass>) => {
-		injectable()(TargetClass);
-		creamContainer.bind<PluginClass>(TYPES.PLUGIN_CLASS).to(TargetClass);
+		injectable()(TargetClass); // 修饰plugin为可注入类
+		creamContainer.bind<PluginClass>(TYPES.PLUGIN_CLASS).to(TargetClass); // 将plugin绑定到容器
 	};
 };

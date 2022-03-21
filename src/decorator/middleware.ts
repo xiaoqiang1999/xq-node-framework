@@ -5,7 +5,7 @@ import {
 } from './constants';
 
 /**
- * 添加中间件的装饰器
+ * 添加局部中间件的装饰器
  * @param middleware 要添加的中间件
  * @returns MethodDecorator & ClassDecorator
  */

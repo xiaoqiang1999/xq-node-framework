@@ -1,10 +1,9 @@
 /// <reference types="koa__router" />
-import { RouterOptions } from '@koa/router';
+import { RouterOptions, RouterContext } from '@koa/router';
 import { Container } from 'inversify';
 import { Next } from 'koa';
 import { IKoaBodyOptions } from 'koa-body';
-import { Log4js } from 'log4js';
-import { Cream, RouterContext } from '.';
+import { Cream } from '.';
 export declare type HttpMethods = 'all' | 'get' | 'post';
 export declare type Param = 'params' | 'query' | 'body' | 'headers' | 'cookies';
 export declare type Constructor<T> = new (...args: any[]) => T;
@@ -27,7 +26,6 @@ export interface CreamOptions {
         [key: string]: any;
     };
     bodyOptions?: IKoaBodyOptions;
-    log4js?: Log4js;
 }
 export interface MiddlewareClass {
     initMiddleware(creamApp: Cream): void | ((ctx: CreamContext, next: Next) => any);

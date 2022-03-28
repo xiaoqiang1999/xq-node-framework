@@ -1,9 +1,8 @@
-import { RouterOptions } from '@koa/router';
+import { RouterOptions, RouterContext } from '@koa/router';
 import { Container } from 'inversify';
 import { Next } from 'koa';
 import { IKoaBodyOptions } from 'koa-body';
-import { Log4js } from 'log4js';
-import { Cream, RouterContext } from '.';
+import { Cream } from '.';
 
 export type HttpMethods = 'all' | 'get' | 'post';
 

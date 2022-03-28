@@ -1,7 +1,8 @@
+import { RouterContext } from '@koa/router';
 import assert from 'assert';
 import { Container } from 'inversify';
 import is from 'is_js';
-import { Cream, CreamContext, RouterContext } from '..';
+import { Cream, CreamContext } from '..';
 import { TYPES } from '../core/types';
 import {
 	CONTROLLER_CLASS_LIST,

@@ -18,13 +18,7 @@ const createParamDecorator = (paramType: Param) => {
 	 */
 	return (propKey: string) => {
 		// @ts-ignore
-		return (
-			targetProto: { [key: string]: any },
-			funcName: string,
-			paramIndex: number
-		) => {
-			console.log(paramType, propKey);
-
+		return (targetProto: object, funcName: string, paramIndex: number) => {
 			const TargetClass = targetProto.constructor;
 			// 在controller类上定义 函数的参数信息
 			// 获取参数list
@@ -39,7 +33,6 @@ const createParamDecorator = (paramType: Param) => {
 				TargetClass,
 				funcName
 			);
-			console.log(paramList);
 		};
 	};
 };

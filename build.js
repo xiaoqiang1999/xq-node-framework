@@ -6,6 +6,7 @@ const shell = require('shelljs');
 
 // 删除 build文件夹
 shell.rm('-rf', './build');
+shell.rm('-rf', './types');
 
 // 使用 tsconfig 将项目编译成js
 shell.exec('tsc --project ./tsconfig.prod.json');

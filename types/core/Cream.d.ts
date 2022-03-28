@@ -6,12 +6,11 @@ import Router from '@koa/router';
 import EventEmitter from 'events';
 import { Server } from 'http';
 import { ListenOptions } from 'net';
-import { Log4js } from 'log4js';
 export default class Cream extends EventEmitter {
     koaApp: Koa;
     router: Router;
     options: CreamOptions;
-    log4js: Log4js;
+    httpServer: Server;
     constructor(options?: CreamOptions);
     loadFile(path: string): any[];
     binding(): Promise<void>;

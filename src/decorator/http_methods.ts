@@ -17,10 +17,10 @@ const createMethodDecorator = (method: HttpMethods) => {
 	 */
 	return (path: string) => {
 		return (
-			targetProto: { [key: string]: any },
+			targetProto: object,
 			funcName: string,
 			// @ts-ignore
-			descriptor: TypedPropertyDescriptor<(...args: any[]) => any>
+			descriptor?: PropertyDescriptor
 		) => {
 			const ControllerClass = targetProto.constructor;
 			// console.log(funcName);

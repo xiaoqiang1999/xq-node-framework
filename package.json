@@ -1,6 +1,6 @@
 {
 	"name": "cream.js",
-	"version": "0.1.0",
+	"version": "0.1.6",
 	"description": "",
 	"main": "build/index.js",
 	"files": [
@@ -11,11 +11,10 @@
 	"types": "./types/index.d.ts",
 	"scripts": {
 		"prepare": "npx simple-git-hooks",
-		"prepublish": "npm run build",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon --exec ts-node --require tsconfig-paths/register ./example/test/index.ts",
 		"build": "node build.js",
-		"publish": "npm publish --registry https://registry.npmjs.org"
+		"publish-npm": "npm run build && npm publish --registry https://registry.npmjs.org"
 	},
 	"author": "xiaoqiang1999",
 	"license": "ISC",

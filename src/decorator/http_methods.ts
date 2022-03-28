@@ -39,7 +39,7 @@ const createMethodDecorator = (method: HttpMethods) => {
 				} as HttpFuncConf,
 				descriptor.value!
 			);
-			// return descriptor;
+			// return descriptor
 			 */
 		};
 	};

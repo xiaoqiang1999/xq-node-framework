@@ -23,7 +23,10 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': 'off', // 变量定义未使用
 		'@typescript-eslint/ban-ts-comment': 'off', // 允许 @ts-ignore
 		'@typescript-eslint/no-var-requires': 'off', // 允许使用 require
-		'@typescript-eslint/ban-types': ['error', { types: { object: false } }],
+		'@typescript-eslint/ban-types': [
+			'error',
+			{ types: { object: false }, extendDefaults: true },
+		],
 	},
 	env: {
 		//指定代码的运行环境

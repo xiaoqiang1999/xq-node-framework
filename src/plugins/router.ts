@@ -11,7 +11,6 @@ import {
 	HTTP_FUNC_CONF,
 	HTTP_FUNC_MIDDLEWARE_LIST,
 	HTTP_FUNC_PARAM_LIST,
-	SERVICE_CLASS_LIST,
 } from '../decorator/constants';
 import { plugin } from '../decorator/plugin';
 import {

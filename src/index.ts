@@ -7,3 +7,5 @@ export * from './decorator';
 
 export { Next } from 'koa';
 export { CreamContext, MiddlewareClass } from './interface';
+
+export { provide, fluentProvide } from 'inversify-binding-decorators';

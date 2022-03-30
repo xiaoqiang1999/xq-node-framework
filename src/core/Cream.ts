@@ -10,6 +10,7 @@ import { Server } from 'http';
 import { ListenOptions } from 'net';
 import defaultOptions from './defaultOptions';
 import objectAssignDeep from 'object-assign-deep';
+import { buildProviderModule } from 'inversify-binding-decorators';
 
 export default class Cream extends EventEmitter {
 	public koaApp: Koa;
@@ -48,6 +49,7 @@ export default class Cream extends EventEmitter {
 			await item.initPlugin(this);
 		}
 
+		creamContainer.load(buildProviderModule()); // 加载provide绑定的依赖
 		this.emit('init', creamContainer); // 触发init事件 进行路由绑定
 	}
 

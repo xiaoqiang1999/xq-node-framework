@@ -9,6 +9,20 @@ import {
 	inject,
 } from '~/src';
 import { IndexService } from '../services';
+import { Utils } from '../utils';
+
+const header = () => {
+	return (
+		targetProto: object,
+		funcName: string,
+		// @ts-ignore
+		descriptor: TypedPropertyDescriptor<(...args: any[]) => any>
+	) => {
+		descriptor.value = () => {
+			console.log('hehehe');
+		};
+	};
+};
 
 // @middleware(['my-middleware2', '3'])
 // @middleware('my-middleware4')
@@ -20,12 +34,16 @@ export class Index {
 	@inject('IndexService') index!: IndexService;
 	@inject('ctx') ctx!: CreamContext;
 	@inject('creamApp') creamApp!: Cream;
+	@inject(Utils) utils!: Utils;
 
 	@get('/home/detail')
 	@middleware(['my-middleware-2'])
+	// @header()
 	getIndex(ctx: CreamContext, next: Next) {
 		let res = '';
 		res += this.index.show();
+		let utils = this.ctx.requestContainer.get(Utils);
+		console.log(utils === this.utils);
 		this.ctx.body = res;
 		this.creamApp.perttyLog('str', 'info');
 		// console.log(ctx.requestContainer.get('ctx'));

@@ -19,8 +19,9 @@ const app = new Cream({ middlewareOrder: ['static-server'] });
 	await app.loadFile('./services');
 	await app.loadFile('./controllers');
 	await app.loadFile('./middlewares');
+	await app.loadFile('./utils/index.ts');
 
-	app.binding();
+	await app.binding();
 
 	app.listen(8080);
 })();

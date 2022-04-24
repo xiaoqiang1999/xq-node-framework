@@ -8,7 +8,7 @@
 		3. 静态资源使用shell命令复制指定文件夹
 
 */
-import { Cream } from '~/src';
+import { Cream } from 'cream.js';
 import log4js from './log4js';
 
 // const app = new Cream({ middlewareOrder: ['static-server'], log4js });

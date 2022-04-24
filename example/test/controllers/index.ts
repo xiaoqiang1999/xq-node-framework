@@ -11,20 +11,6 @@ import {
 import { IndexService } from '../services';
 import { Utils } from '../utils';
 
-const header = () => {
-	return (
-		targetProto: object,
-		funcName: string,
-		descriptor: TypedPropertyDescriptor<(...args: any[]) => any>
-	) => {
-		// console.log(descriptor.value!.constructor.name);
-		// console.log(descriptor.value!.constructor === Index); // false
-		descriptor.value = () => {
-			console.log('hehehe');
-		};
-	};
-};
-
 // @middleware(['my-middleware2', '3'])
 // @middleware('my-middleware4')
 @controller('/index')
@@ -39,7 +25,6 @@ export class Index {
 
 	@get('/home/detail')
 	@middleware(['my-middleware-2'])
-	@header()
 	getIndex(ctx: CreamContext, next: Next) {
 		let res = '';
 		res += this.index.show();

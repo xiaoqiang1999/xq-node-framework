@@ -19,7 +19,6 @@ const createMethodDecorator = (method: HttpMethods) => {
 		return (
 			targetProto: object,
 			funcName: string,
-			// @ts-ignore
 			descriptor?: TypedPropertyDescriptor<(...args: any[]) => any>
 		) => {
 			const ControllerClass = targetProto.constructor;

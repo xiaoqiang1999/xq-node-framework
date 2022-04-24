@@ -1,5 +1,4 @@
-import { CreamContext, service } from '~/src';
-import { inject } from 'inversify';
+import { CreamContext, service, inject } from 'cream.js';
 import { Utils } from '../utils';
 
 @service()

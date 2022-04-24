@@ -4,7 +4,7 @@ import {
 	Next,
 	defineMiddleware,
 	MiddlewareClass,
-} from '~/src';
+} from 'cream.js';
 
 @defineMiddleware('my-middleware-1')
 class Temp implements MiddlewareClass {

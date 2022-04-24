@@ -1,4 +1,4 @@
-import { controller } from '~/src';
+import { controller } from 'cream.js';
 
 @controller()
 class Temp {}

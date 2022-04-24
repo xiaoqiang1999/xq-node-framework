@@ -8,7 +8,7 @@ import {
 	Next,
 	defineMiddleware,
 	MiddlewareClass,
-} from '~/src';
+} from 'cream.js';
 
 const options: SendOptions = {
 	root: path.resolve(__dirname, '../public'),

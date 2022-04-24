@@ -1,4 +1,9 @@
-import { CreamContext, Next, defineMiddleware, MiddlewareClass } from '~/src';
+import {
+	CreamContext,
+	Next,
+	defineMiddleware,
+	MiddlewareClass,
+} from 'cream.js';
 
 @defineMiddleware('my-middleware-3')
 class MyMiddleware2 implements MiddlewareClass {

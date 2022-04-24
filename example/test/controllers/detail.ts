@@ -11,7 +11,7 @@ import {
 	Cream,
 	middleware,
 	inject,
-} from '~/src';
+} from 'cream.js';
 import { IndexService } from '../services';
 
 @controller('/detail')

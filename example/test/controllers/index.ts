@@ -7,7 +7,7 @@ import {
 	middleware,
 	Cream,
 	inject,
-} from '~/src';
+} from 'cream.js';
 import { IndexService } from '../services';
 import { Utils } from '../utils';
 
@@ -15,9 +15,10 @@ const header = () => {
 	return (
 		targetProto: object,
 		funcName: string,
-		// @ts-ignore
 		descriptor: TypedPropertyDescriptor<(...args: any[]) => any>
 	) => {
+		// console.log(descriptor.value!.constructor.name);
+		// console.log(descriptor.value!.constructor === Index); // false
 		descriptor.value = () => {
 			console.log('hehehe');
 		};
@@ -38,7 +39,7 @@ export class Index {
 
 	@get('/home/detail')
 	@middleware(['my-middleware-2'])
-	// @header()
+	@header()
 	getIndex(ctx: CreamContext, next: Next) {
 		let res = '';
 		res += this.index.show();

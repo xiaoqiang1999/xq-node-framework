@@ -17,7 +17,6 @@ const createParamDecorator = (paramType: Param) => {
 	 * @returns ParameterDecorator
 	 */
 	return (propKey: string) => {
-		// @ts-ignore
 		return (targetProto: object, funcName: string, paramIndex: number) => {
 			const TargetClass = targetProto.constructor;
 			// 在controller类上定义 函数的参数信息

@@ -107,6 +107,7 @@ class Router implements PluginClass {
 							TYPES.CONTROLLER,
 							Controller.name
 						);
+						console.log(controller[funcName]);
 						return controller[funcName](
 							...getArgsByParamsDescription(paramsDescriptionList, ctx),
 							ctx,
